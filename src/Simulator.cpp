@@ -1257,7 +1257,7 @@ void Simulator::printStatistics() {
   printf("Branch Perdiction Accuacy: %.4f (Strategy: %s)\n",
          (float)this->history.predictedBranch /
              (this->history.predictedBranch + this->history.unpredictedBranch),
-         this->branchPredictor->strategyName().c_str());
+         this->branchPredictor->name().c_str());
   printf("Number of Control Hazards: %u\n",
          this->history.controlHazardCount);
   printf("Number of Data Hazards: %u\n", this->history.dataHazardCount);

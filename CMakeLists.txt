@@ -11,10 +11,9 @@ add_executable(
     Simulator 
     src/MainCPU.cpp 
     src/MemoryManager.cpp 
-    src/Simulator.cpp 
-    src/BranchPredictor.cpp 
-    src/Cache.cpp
-)
+    src/Simulator.cpp
+        src/Cache.cpp
+        src/bpus/GAp.cpp src/bpus/GAp.h src/bpus/AgreeSAp.cpp src/bpus/AgreeSAp.h)
 
 add_executable(
     CacheSim 

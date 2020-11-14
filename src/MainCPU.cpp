@@ -15,6 +15,8 @@
 #include "Debug.h"
 #include "MemoryManager.h"
 #include "Simulator.h"
+#include "bpus/GAp.h"
+#include "bpus/AgreeSAp.h"
 
 bool parseParameters(int argc, char **argv);
 void printUsage();
@@ -29,9 +31,8 @@ uint32_t stackBaseAddr = 0x80000000;
 uint32_t stackSize = 0x400000;
 MemoryManager memory;
 Cache *l1Cache, *l2Cache, *l3Cache;
-BranchPredictor::Strategy strategy = BranchPredictor::Strategy::NT;
-BranchPredictor branchPredictor;
-Simulator simulator(&memory, &branchPredictor);
+BranchPredictor *branchPredictor = new AgreeSAp();
+Simulator simulator(&memory, branchPredictor);
 
 int main(int argc, char **argv) {
   if (!parseParameters(argc, argv)) {
@@ -89,7 +90,6 @@ int main(int argc, char **argv) {
   simulator.isSingleStep = isSingleStep;
   simulator.verbose = verbose;
   simulator.shouldDumpHistory = dumpHistory;
-  simulator.branchPredictor->strategy = strategy;
   simulator.pc = reader.get_entry();
   simulator.initStack(stackBaseAddr, stackSize);
   simulator.simulate();
@@ -119,25 +119,6 @@ bool parseParameters(int argc, char **argv) {
       case 'd':
         dumpHistory = 1;
         break;
-      case 'b':
-        if (i + 1 < argc) {
-          std::string str = argv[i + 1];
-          i++;
-          if (str == "AT") {
-            strategy = BranchPredictor::Strategy::AT;
-          } else if (str == "NT") {
-            strategy = BranchPredictor::Strategy::NT;
-          } else if (str == "BTFNT") {
-            strategy = BranchPredictor::Strategy::BTFNT;
-          } else if (str == "BPB") {
-            strategy = BranchPredictor::Strategy::BPB;
-          } else {
-            return false;
-          }
-        } else {
-          return false;
-        }
-        break;
       default:
         return false;
       }
@@ -159,8 +140,6 @@ void printUsage() {
   printf("Usage: Simulator riscv-elf-file [-v] [-s] [-d] [-b param]\n");
   printf("Parameters: \n\t[-v] verbose output \n\t[-s] single step\n");
   printf("\t[-d] dump memory and register trace to dump.txt\n");
-  printf("\t[-b param] branch perdiction strategy, accepted param AT, NT, "
-         "BTFNT, BPB\n");
 }
 
 void printElfInfo(ELFIO::elfio *reader) {
