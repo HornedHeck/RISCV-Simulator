@@ -26,13 +26,13 @@ public:
 
 private:
     static const int SET_SIZE = 256;
-    static const uint8_t SET_OFFSET = 8;
+    static const uint8_t SET_OFFSET = 4;
     static const uint8_t BHR_LIMIT = 32;
     static const uint8_t SET_LIMIT = 8;
     static const uint8_t PHT_LIMIT = 32;
     static const uint8_t BTB_LIMIT = 64;
     uint8_t bhr[SET_LIMIT] = {0};
-    STATE pht[BHR_LIMIT][PHT_LIMIT] = {{STATE::NT}};
+    STATE pht[BHR_LIMIT][PHT_LIMIT] = {{STATE::PT}};
     bool btb[BHR_LIMIT] = {true};
     bool is_btb_set[BHR_LIMIT] = {false};
 

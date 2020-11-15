@@ -17,6 +17,7 @@
 #include "Simulator.h"
 #include "bpus/GAp.h"
 #include "bpus/AgreeSAp.h"
+#include "bpus/AgreeGAp.h"
 
 bool parseParameters(int argc, char **argv);
 void printUsage();
