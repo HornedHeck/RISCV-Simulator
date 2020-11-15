@@ -1249,6 +1249,9 @@ void Simulator::printInfo() {
     printf("-----------------------------------\n");
 }
 
+static const int history_success_empty = 4;
+static const int history_empty = 15;
+
 void Simulator::printStatistics() {
     printf("------------ STATISTICS -----------\n");
     printf("Number of Instructions: %u\n", this->history.instCount);
@@ -1256,10 +1259,10 @@ void Simulator::printStatistics() {
     printf("Avg Cycles per Instrcution: %.4f\n",
            (float) this->history.cycleCount / this->history.instCount);
     printf("Branch Perdiction Accuacy: %u from %u (%.4f) (Strategy: %s)\n",
-           this->history.predictedBranch,
-           this->history.predictedBranch + this->history.unpredictedBranch,
-           (float) this->history.predictedBranch /
-           (this->history.predictedBranch + this->history.unpredictedBranch),
+           this->history.predictedBranch - history_success_empty,
+           this->history.predictedBranch + this->history.unpredictedBranch - history_empty,
+           (float) (this->history.predictedBranch - history_success_empty) /
+           (this->history.predictedBranch + this->history.unpredictedBranch - history_empty),
            this->branchPredictor->name().c_str());
     printf("Number of Control Hazards: %u\n",
            this->history.controlHazardCount);
