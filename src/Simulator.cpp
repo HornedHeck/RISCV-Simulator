@@ -1249,26 +1249,21 @@ void Simulator::printInfo() {
     printf("-----------------------------------\n");
 }
 
-static const int history_success_empty = 4;
-static const int history_empty = 15;
+static const int history_success_empty = 0;
+static const int history_empty = 0;
 
-void Simulator::printStatistics() {
+void Simulator::printStatistics() const {
     printf("------------ STATISTICS -----------\n");
     printf("Number of Instructions: %u\n", this->history.instCount);
     printf("Number of Cycles: %u\n", this->history.cycleCount);
     printf("Avg Cycles per Instrcution: %.4f\n",
            (float) this->history.cycleCount / this->history.instCount);
-    printf("Branch Perdiction Accuacy: %u from %u (%.4f) (Strategy: %s)\n",
+    printf("Branch Perdiction Accuacy: %u from %u (%.4lf) (Strategy: %s)\n",
            this->history.predictedBranch - history_success_empty,
            this->history.predictedBranch + this->history.unpredictedBranch - history_empty,
-           (float) (this->history.predictedBranch - history_success_empty) /
+           (double) (this->history.predictedBranch - history_success_empty) /
            (this->history.predictedBranch + this->history.unpredictedBranch - history_empty),
            this->branchPredictor->name().c_str());
-    printf("Number of Control Hazards: %u\n",
-           this->history.controlHazardCount);
-    printf("Number of Data Hazards: %u\n", this->history.dataHazardCount);
-    printf("Number of Memory Hazards: %u\n",
-           this->history.memoryHazardCount);
     printf("-----------------------------------\n");
     //this->memory->printStatistics();
 }

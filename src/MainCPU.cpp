@@ -32,7 +32,7 @@ uint32_t stackBaseAddr = 0x80000000;
 uint32_t stackSize = 0x400000;
 MemoryManager memory;
 Cache *l1Cache, *l2Cache, *l3Cache;
-BranchPredictor *branchPredictor = new AgreeSAp();
+BranchPredictor *branchPredictor = new GAp();
 Simulator simulator(&memory, branchPredictor);
 
 int main(int argc, char **argv) {

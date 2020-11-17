@@ -186,7 +186,7 @@ public:
 
   void printInfo();
 
-  void printStatistics();
+  void printStatistics() const;
 
 private:
   struct FReg {

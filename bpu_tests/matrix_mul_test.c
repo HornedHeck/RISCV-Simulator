@@ -6,7 +6,7 @@
 
 const int M = 10;
 
-void matmulti(int a[M][M], int b[M][M], int c[M][M], int M) {
+void matrix_mul(int a[M][M], int b[M][M], int c[M][M]) {
     for (int i = 0; i < M; ++i) {
         for (int j = 0; j < M; ++j) {
             c[i][j] = 0;
@@ -26,11 +26,10 @@ int main() {
         for (int j = 0; j < M; ++j) {
             A[i][j] = i;
             B[i][j] = j;
-            C[i][j] = 0;
         }
     }
 
-    matmulti(A, B, C, M);
+    matrix_mul(A, B, C);
 
     exit_proc();
 }
