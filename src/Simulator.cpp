@@ -100,6 +100,8 @@ void Simulator::simulate() {
     eReg.bubble = true;
     mReg.bubble = true;
 
+    start = system_clock::now();
+
     // Main Simulation Loop
     while (true) {
         if (this->reg[0] != 0) {
@@ -1249,22 +1251,29 @@ void Simulator::printInfo() {
     printf("-----------------------------------\n");
 }
 
-static const int history_success_empty = 0;
-static const int history_empty = 0;
-
 void Simulator::printStatistics() const {
+    auto end = system_clock::now();
     printf("------------ STATISTICS -----------\n");
     printf("Number of Instructions: %u\n", this->history.instCount);
     printf("Number of Cycles: %u\n", this->history.cycleCount);
     printf("Avg Cycles per Instrcution: %.4f\n",
            (float) this->history.cycleCount / this->history.instCount);
     printf("Branch Perdiction Accuacy: %u from %u (%.4lf) (Strategy: %s)\n",
-           this->history.predictedBranch - history_success_empty,
-           this->history.predictedBranch + this->history.unpredictedBranch - history_empty,
-           (double) (this->history.predictedBranch - history_success_empty) /
-           (this->history.predictedBranch + this->history.unpredictedBranch - history_empty),
+           this->history.predictedBranch,
+           this->history.predictedBranch + this->history.unpredictedBranch,
+           (double) (this->history.predictedBranch) /
+           (this->history.predictedBranch + this->history.unpredictedBranch),
            this->branchPredictor->name().c_str());
+    printf("Execution time: %ld ms\n", duration_cast<milliseconds>(end - start).count());
     printf("-----------------------------------\n");
+
+    std::ofstream test_dump;
+    test_dump.open("test_res", std::ios_base::app);
+    test_dump << this->history.predictedBranch << " "
+              << this->history.predictedBranch + this->history.unpredictedBranch << " "
+              << duration_cast<milliseconds>(end - start).count() << std::endl;
+
+
     //this->memory->printStatistics();
 }
 

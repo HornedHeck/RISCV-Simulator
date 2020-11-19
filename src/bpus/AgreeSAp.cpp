@@ -5,7 +5,7 @@
 #include "AgreeSAp.h"
 
 uint AgreeSAp::get_index(uint32_t pc, uint8_t history) {
-    return (pc % BHR_LIMIT) ^ history;
+    return (pc % PC_LIMIT << PC_OFFSET) + (history % HISTORY_LIMIT);
 }
 
 bool AgreeSAp::predict(uint32_t pc, uint32_t insttype, int64_t op1, int64_t op2, int64_t offset) {
@@ -22,7 +22,7 @@ uint8_t AgreeSAp::get_set(uint32_t pc) {
 
 void AgreeSAp::update(uint32_t pc, bool branch) {
     auto set = get_set(pc);
-    uint8_t btb_i = pc % BHR_LIMIT;
+    uint8_t btb_i = pc % BTB_LIMIT;
     if (!is_btb_set[btb_i]) {
         btb[btb_i] = branch;
         is_btb_set[btb_i] = true;

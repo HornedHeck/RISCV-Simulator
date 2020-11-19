@@ -25,16 +25,21 @@ public:
     std::string name() override;
 
 private:
-    static const int SET_SIZE = 256;
-    static const uint8_t SET_OFFSET = 4;
+    static const uint8_t SET_OFFSET = 3;
+    static const uint8_t SET_LIMIT = 16;
+
     static const uint8_t BHR_LIMIT = 32;
-    static const uint8_t SET_LIMIT = 8;
-    static const uint8_t PHT_LIMIT = 32;
-    static const uint8_t BTB_LIMIT = 64;
+    static const uint8_t HISTORY_LIMIT = 4;
+    static const uint8_t PC_LIMIT = 8;
+    static const uint8_t PC_OFFSET = 2;
+
+    static const uint8_t PHT_LIMIT = 8;
+    static const uint16_t BTB_LIMIT = 4096;
+
     uint8_t bhr[SET_LIMIT] = {0};
     STATE pht[BHR_LIMIT][PHT_LIMIT] = {{STATE::PT}};
-    bool btb[BHR_LIMIT] = {true};
-    bool is_btb_set[BHR_LIMIT] = {false};
+    bool btb[BTB_LIMIT] = {true};
+    bool is_btb_set[BTB_LIMIT] = {false};
 
     static uint get_index(uint32_t pc, uint8_t history);
 
