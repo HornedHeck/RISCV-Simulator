@@ -27,7 +27,6 @@ void AgreeGAp::update(uint32_t pc, bool branch) {
                 pht[ghr][pht_i] = (STATE)((uint8_t) pht[ghr][pht_i] - 1);
             }
         }
-
     }
 
     ghr <<= (uint8_t) 1;
