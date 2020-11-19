@@ -6,10 +6,9 @@
 
 
 bool AgreeGAp::predict(uint32_t pc, uint32_t insttype, int64_t op1, int64_t op2, int64_t offset) {
-
     auto p = 1 < (uint8_t) pht[ghr][get_pht_index(pc, ghr)];
     auto bias = btb[get_tag(pc)];
-    return p == bias;
+    return p ^ bias;
 }
 
 void AgreeGAp::update(uint32_t pc, bool branch) {
@@ -19,7 +18,7 @@ void AgreeGAp::update(uint32_t pc, bool branch) {
         btb_set[branch] = true;
     } else {
         auto pht_i = get_pht_index(pc, ghr);
-        if (btb[tag_i] == branch) {
+        if (btb[tag_i] ^ branch) {
             if (pht[ghr][pht_i] != STATE::T) {
                 pht[ghr][pht_i] = (STATE)((uint8_t) pht[ghr][pht_i] + 1);
             }
@@ -41,9 +40,9 @@ std::string AgreeGAp::name() {
 }
 
 uint8_t AgreeGAp::get_tag(uint32_t pc) {
-    return pc % TAG_LIMIT;
+    return pc % BTB_LIMIT;
 }
 
 uint8_t AgreeGAp::get_pht_index(uint32_t pc, uint8_t ghr) {
-    return (pc ^ ghr) % PHT_ENTRIES_COUNT;
+    return (pc % PC_LIMIT << PC_OFFSET) ^ (ghr % HISTORY_LIMIT);
 }

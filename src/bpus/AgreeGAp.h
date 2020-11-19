@@ -17,13 +17,19 @@ public:
     std::string name() override;
 
 private:
-    static const int PHT_COUNT = 8;
+    static const int BTB_LIMIT = 4;
+
     static const int PHT_ENTRIES_COUNT = 16;
-    static const int TAG_LIMIT = 10;
+    static const int PHT_COUNT = 32;
+
+    static const uint8_t HISTORY_LIMIT = 1;
+    static const uint8_t PC_LIMIT = 16;
+    static const uint8_t PC_OFFSET = 0;
+
     uint8_t ghr = 0;
     STATE pht[PHT_COUNT][PHT_ENTRIES_COUNT] = {{STATE::PT}};
-    bool btb[TAG_LIMIT] = {false};
-    bool btb_set[TAG_LIMIT] = {false};
+    bool btb[BTB_LIMIT] = {false};
+    bool btb_set[BTB_LIMIT] = {false};
 
     static uint8_t get_tag(uint32_t pc);
 
