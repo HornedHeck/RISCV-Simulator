@@ -5,7 +5,7 @@
 #include "lib/lib.h"
 #include <string.h>
 
-const int M = 10;
+#define M 10
 
 void matrix_mul(int a[M][M], int b[M][M], int c[M][M]) {
     for (int i = 0; i < M; ++i) {
@@ -105,9 +105,9 @@ int main() {
         }
     }
 
-    const int N = 10;
+
     int a[10] = {5, 3, 5, 6, 7, 1, 3, 5, 6, 1};
-    quicksort(a, 0, N - 1);
+    quicksort(a, 0, 9);
 
     exit_proc();
 }

@@ -4,7 +4,7 @@
 
 #include "lib/lib.h"
 
-const int M = 10;
+#define M 10
 
 void matrix_mul(int a[M][M], int b[M][M], int c[M][M]) {
     for (int i = 0; i < M; ++i) {
@@ -21,7 +21,10 @@ int main() {
 
     print_s("MATRIX MUL TEST\n");
 
-    int A[M][M], B[M][M], C[M][M];
+    int A[M][M];
+    int B[M][M];
+    int C[M][M];
+
     for (int i = 0; i < M; ++i) {
         for (int j = 0; j < M; ++j) {
             A[i][j] = i;
