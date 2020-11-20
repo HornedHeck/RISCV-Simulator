@@ -13,7 +13,7 @@ add_executable(
         src/MemoryManager.cpp
         src/Simulator.cpp
         src/Cache.cpp
-        src/bpus/GAp.cpp src/bpus/GAp.h src/bpus/AgreeSAp.cpp src/bpus/AgreeSAp.h src/bpus/AgreeGAp.cpp src/bpus/AgreeGAp.h)
+        src/bpus/GAp.cpp src/bpus/GAp.h src/bpus/AgreeSAp.cpp src/bpus/AgreeSAp.h src/bpus/AgreeGAp.cpp src/bpus/AgreeGAp.h src/bpus/PAs.cpp src/bpus/PAs.h src/bpus/PAp.cpp src/bpus/PAp.h)
 
 add_executable(
         CacheSim

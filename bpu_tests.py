@@ -8,6 +8,7 @@ import numpy as nmp
 
 # config
 pandas.set_option('display.max_columns', None)
+pandas.set_option('display.width', 1000)
 
 is_build = True
 
@@ -39,15 +40,19 @@ for f in listdir(tests_path):
 print('Tests finished. Reading tests results')
 
 test_res = pandas.read_csv(test_results_name, delim_whitespace=True, header=None)
-test_res.columns = ['All', 'Success', 'Time (ms)']
+test_res.columns = ['All', 'Success', 'Time (ms)', 'Cycles', 'Instructions']
 test_res.insert(0, 'Name', names)
 
 test_res.insert(3, 'Accuracy %', test_res.iloc[:, 1].to_numpy() / test_res.iloc[:, 2].to_numpy() * 100.0)
+test_res.insert(7, 'CPI(Avg.)', test_res.iloc[:, 5].to_numpy() / test_res.iloc[:, 6].to_numpy())
 
 predicted_branches = nmp.sum(test_res.iloc[:, 1].to_numpy())
 all_branches = nmp.sum(test_res.iloc[:, 2].to_numpy())
 time = nmp.sum(test_res.iloc[:, 4].to_numpy())
-test_res.loc[10] = ['SUMMARY', predicted_branches, all_branches, predicted_branches / all_branches * 100.0, time]
+cycles = nmp.sum(test_res.iloc[:, 5].to_numpy())
+instr = nmp.sum(test_res.iloc[:, 6].to_numpy())
+test_res.loc[10] = ['SUMMARY', predicted_branches, all_branches, predicted_branches / all_branches * 100.0, time,
+                    cycles, instr, cycles / instr]
 
 print(test_res)
 

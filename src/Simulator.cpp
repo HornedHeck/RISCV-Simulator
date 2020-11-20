@@ -1271,7 +1271,9 @@ void Simulator::printStatistics() const {
     test_dump.open("test_res", std::ios_base::app);
     test_dump << this->history.predictedBranch << " "
               << this->history.predictedBranch + this->history.unpredictedBranch << " "
-              << duration_cast<milliseconds>(end - start).count() << std::endl;
+              << duration_cast<milliseconds>(end - start).count() << " "
+              << this->history.cycleCount << " "
+              << this->history.instCount << std::endl;
 
 
     //this->memory->printStatistics();
