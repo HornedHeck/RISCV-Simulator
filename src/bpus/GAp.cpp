@@ -31,3 +31,5 @@ void GAp::update(uint32_t pc, bool branch) {
 std::string GAp::name() {
     return "GAp";
 }
+
+GAp::GAp() = default;

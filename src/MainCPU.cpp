@@ -20,6 +20,7 @@
 #include "bpus/AgreeGAp.h"
 #include "bpus/PAs.h"
 #include "bpus/PAp.h"
+#include "bpus/TAGE.h"
 #include "bpus/MAs.h"
 
 bool parseParameters(int argc, char **argv);
@@ -38,7 +39,7 @@ uint32_t stackBaseAddr = 0x80000000;
 uint32_t stackSize = 0x400000;
 MemoryManager memory;
 Cache *l1Cache, *l2Cache, *l3Cache;
-BranchPredictor *branchPredictor = new MAs();
+BranchPredictor *branchPredictor = new TAGE();
 Simulator simulator(&memory, branchPredictor);
 
 int main(int argc, char **argv) {

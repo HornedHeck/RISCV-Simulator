@@ -9,6 +9,11 @@
  */
 class GAp : public BranchPredictor {
 
+public:
+    explicit GAp();
+
+private:
+
     bool predict(uint32_t pc, uint32_t insttype, int64_t op1, int64_t op2, int64_t offset) override;
 
     void update(uint32_t pc, bool branch) override;
@@ -20,7 +25,7 @@ private:
     static const int PHT_COUNT = 32;
     static const int PHT_ENTRIES_COUNT = 32;
     uint8_t ghr = 0;
-    STATE pht[PHT_COUNT][PHT_ENTRIES_COUNT];
+    STATE pht[PHT_COUNT][PHT_ENTRIES_COUNT] = {{STATE::PNT}};
 
 };
 
