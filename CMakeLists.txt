@@ -33,6 +33,6 @@ add_executable(
         BPUTests
         bpu_tests/ifs_test.c
         bpu_tests/empty_test.c
-        bpu_tests/func_test.c bpu_tests/cycles_test.c bpu_tests/math_tests.c bpu_tests/random_test.c_s bpu_tests/matrix_mul_test.c bpu_tests/quick_sort_test.c bpu_tests/index_of_test.c bpu_tests/str_test.c bpu_tests/long_loops_test.cpp bpu_tests/aliasing_test.c)
+        bpu_tests/func_test.c bpu_tests/cycles_test.c bpu_tests/math_tests.c bpu_tests/random_test.c_s bpu_tests/matrix_mul_test.c bpu_tests/quick_sort_test.c bpu_tests/index_of_test.c bpu_tests/str_test.c bpu_tests/aliasing_test.c)
 
 add_executable(ToDirenoTrace src/ToDirenoTrace.cpp)
