@@ -7,7 +7,6 @@
 
 bool TAGE::predict(uint32_t pc, uint32_t insttype, int64_t op1, int64_t op2, int64_t offset) {
     for (int8_t i = T_COUNT - 1; i >= 0; --i) {
-
         auto h_len = get_history_length(i);
         auto history = get_history(h_len);
         auto r_tag = hash(pc, history, h_len);
@@ -20,7 +19,6 @@ bool TAGE::predict(uint32_t pc, uint32_t insttype, int64_t op1, int64_t op2, int
             }
         }
     }
-
     return T0->predict(pc, insttype, op1, op2, offset);
 }
 
@@ -112,7 +110,7 @@ void TAGE::update(uint32_t pc, bool branch) {
     if (alt_count > 0) {
         for (int i = 0; i < alt_count; ++i) {
             if (alt_pred[i] != pred) {
-                update_useful(pred_i, pred_t, pred == branch);
+                update_useful(pred_i, pred_t, alt_pred[i] == branch);
                 break;
             }
         }
